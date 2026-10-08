@@ -18,3 +18,14 @@ Under development. The commit history shows what currently works.
 ## License
 
 Apache License 2.0 — see [LICENSE](LICENSE).
+
+## Requirements
+- Java 21
+- Maven (the wrapper `./mvnw` is included)
+
+## Building and running
+./mvnw spring-boot:run
+
+The service listens on`http://localhost:8080 \
+curl http://localhost:8080/actuator \
+curl http://localhost:8080/actuator/health
