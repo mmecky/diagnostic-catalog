@@ -24,8 +24,10 @@ Apache License 2.0 — see [LICENSE](LICENSE).
 - Maven (the wrapper `./mvnw` is included)
 
 ## Building and running
+```bash
 ./mvnw spring-boot:run
-
-The service listens on`http://localhost:8080 \
-curl http://localhost:8080/actuator \
+```
+The service listens on `http://localhost:8080`.
+```bash
 curl http://localhost:8080/actuator/health
+```
