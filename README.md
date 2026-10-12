@@ -30,4 +30,5 @@ Apache License 2.0 — see [LICENSE](LICENSE).
 The service listens on `http://localhost:8080`.
 ```bash
 curl http://localhost:8080/actuator/health
+curl http://localhost:8080/entries
 ```
