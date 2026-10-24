@@ -26,6 +26,14 @@ public class Entry {
     protected Entry() {
     }
 
+    public Entry(String symptom, String cause, String remedy, Component component, Set<String> tags) {
+        this.symptom = symptom;
+        this.cause = cause;
+        this.remedy = remedy;
+        this.component = component;
+        this.tags = tags;
+    }
+
     public Long getId() {
         return id;
     }
