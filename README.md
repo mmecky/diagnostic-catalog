@@ -86,10 +86,12 @@ curl http://localhost:8080/entries/1
 Create an entry (this writes to the database, and there is no `DELETE` yet):
 
 ```bash
-curl -i -X POST http://localhost:8080/entries -H 'Content-Type: application/json' -d '{"symptom":"Unit beeps twice at start","cause":"Battery is low","remedy":"Replace the battery","component":{"id":2},"tags":["beep","battery"]}'
+curl -i -X POST http://localhost:8080/entries -H 'Content-Type: application/json' -d '{"symptom":"Unit beeps twice at start","cause":"Battery is low","remedy":"Replace the battery","componentId":2,"tags":["beep","battery"]}'
 ```
 
-The response is `201 Created` with a `Location` header pointing to the new entry.
+`componentId` refers to an existing component (the sample data has 1 to 4); an unknown id gives `400 Bad Request`.
+The response is `201 Created` with a `Location` header pointing to the new entry. The body contains the component
+with its `id` and `name`.
 
 ## Tests
 
