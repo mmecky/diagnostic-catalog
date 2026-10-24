@@ -1,7 +1,8 @@
 package io.github.mmecky.diagnosticcatalog.controller;
 
-import io.github.mmecky.diagnosticcatalog.model.Entry;
-import io.github.mmecky.diagnosticcatalog.repository.EntryRepository;
+import io.github.mmecky.diagnosticcatalog.dto.EntryRequestDto;
+import io.github.mmecky.diagnosticcatalog.dto.EntryResponseDto;
+import io.github.mmecky.diagnosticcatalog.service.EntryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,26 +19,26 @@ import java.util.List;
 @RestController
 public class DiagnosticController {
 
-    private final EntryRepository entryRepository;
+    private final EntryService entryService;
 
-    public DiagnosticController(EntryRepository entryRepository) {
-        this.entryRepository = entryRepository;
+    public DiagnosticController(EntryService entryService) {
+        this.entryService = entryService;
     }
 
     @GetMapping("/entries")
-    public List<Entry> getEntries() {
-        return entryRepository.findAll();
+    public List<EntryResponseDto> getEntries() {
+        return entryService.findAll();
     }
 
     @GetMapping("/entries/{id}")
-    public Entry getEntryById(@PathVariable Long id) {
-        return entryRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    public EntryResponseDto getEntryById(@PathVariable Long id) {
+        return entryService.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping("/entries")
-    public ResponseEntity<Entry> createEntry(@RequestBody Entry entry) {
-        Entry saved = entryRepository.save(entry);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}").buildAndExpand(saved.getId()).toUri();
-        return ResponseEntity.created(location).body(saved);
+    public ResponseEntity<EntryResponseDto> createEntry(@RequestBody EntryRequestDto request) {
+        EntryResponseDto response = entryService.save(request);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}").buildAndExpand(response.id()).toUri();
+        return ResponseEntity.created(location).body(response);
     }
 }

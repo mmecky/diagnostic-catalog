@@ -32,7 +32,7 @@ public class EntryService {
     @Transactional(readOnly = true)
     public List<EntryResponseDto> findAll() {
         List<Entry> entries = entryRepository.findAll();
-        List<EntryResponseDto> dtos = entries.stream().map(entry -> toResponseDto(entry)).toList();
+        List<EntryResponseDto> dtos = entries.stream().map(this::toResponseDto).toList();
         return dtos;
     }
 
