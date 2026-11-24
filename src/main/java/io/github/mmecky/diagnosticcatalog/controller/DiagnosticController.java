@@ -3,6 +3,7 @@ package io.github.mmecky.diagnosticcatalog.controller;
 import io.github.mmecky.diagnosticcatalog.dto.EntryRequestDto;
 import io.github.mmecky.diagnosticcatalog.dto.EntryResponseDto;
 import io.github.mmecky.diagnosticcatalog.service.EntryService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,7 +37,7 @@ public class DiagnosticController {
     }
 
     @PostMapping("/entries")
-    public ResponseEntity<EntryResponseDto> createEntry(@RequestBody EntryRequestDto request) {
+    public ResponseEntity<EntryResponseDto> createEntry(@RequestBody @Valid EntryRequestDto request) {
         EntryResponseDto response = entryService.save(request);
         URI location = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}").buildAndExpand(response.id()).toUri();
         return ResponseEntity.created(location).body(response);
